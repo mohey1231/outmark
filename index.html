@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f4f2" />
+  <title>OutMark — تفضل بزيارتنا</title>
+  <meta name="description" content="صفحة تواصل وموقع OutMark في بريدة، المملكة العربية السعودية." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --paper: #ffffff;
+      --soft: #efefed;
+      --soft-2: #e7e7e4;
+      --line: rgba(34, 34, 34, 0.08);
+      --ink: #232323;
+      --ink-2: #5e5e5a;
+      --ink-3: #8b8b86;
+      --shadow: 0 18px 42px rgba(22, 22, 22, 0.09);
+      --shadow-soft: 0 11px 26px rgba(22, 22, 22, 0.07);
+      --radius-lg: 24px;
+      --radius-md: 19px;
+      --content: 1080px;
+      --ease: cubic-bezier(.22,1,.36,1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans Arabic", "DIN Next Arabic", Tahoma, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 640px at 5% 50%, rgba(210,210,207,.95) 0%, rgba(229,229,226,.72) 34%, rgba(245,245,243,0) 70%),
+        radial-gradient(760px 560px at 95% 54%, rgba(226,226,223,.88) 0%, rgba(244,244,242,.45) 52%, rgba(245,245,243,0) 78%),
+        linear-gradient(90deg, #eeeeeb 0%, #f9f9f8 48%, #f2f2ef 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(16px);
+      opacity: .55;
+      z-index: -1;
+      animation: ambient 12s ease-in-out infinite alternate;
+    }
+
+    body::before {
+      width: 420px;
+      height: 420px;
+      left: -150px;
+      top: 18vh;
+      background: rgba(255,255,255,.72);
+    }
+
+    body::after {
+      width: 360px;
+      height: 360px;
+      right: -110px;
+      bottom: 4vh;
+      background: rgba(220,220,216,.58);
+      animation-delay: -4s;
+    }
+
+    @keyframes ambient {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to { transform: translate3d(20px,-16px,0) scale(1.06); }
+    }
+
+    /* Desktop composition enlarged to approximately 120% while preserving the same proportions. */
+    .page {
+      min-height: 100svh;
+      width: min(100% - 44px, var(--content));
+      margin-inline: auto;
+      padding: 22px 0 29px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 41px;
+    }
+
+    .pin-badge {
+      width: 77px;
+      height: 77px;
+      margin: 0 auto 17px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(232,232,229,.94);
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.92), 0 8px 22px rgba(23,23,23,.05);
+      animation: pinFloat 3.2s ease-in-out infinite;
+    }
+
+    .pin-badge svg {
+      width: 36px;
+      height: 36px;
+      stroke: #3d3d3b;
+      stroke-width: 2.15;
+      fill: none;
+    }
+
+    @keyframes pinFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(41px, 3.78vw, 53px);
+      line-height: 1.25;
+      letter-spacing: -.6px;
+      font-weight: 700;
+    }
+
+    .location-line {
+      margin: 12px 0 0;
+      font-size: 18.6px;
+      line-height: 1.7;
+      font-weight: 600;
+      color: #454542;
+    }
+
+    .location-sub {
+      margin: 1px 0 0;
+      font-size: 16.2px;
+      line-height: 1.8;
+      font-weight: 400;
+      color: var(--ink-2);
+    }
+
+    .map-wrap {
+      position: relative;
+      width: 100%;
+      height: 456px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #ededeb;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.9);
+      isolation: isolate;
+    }
+
+    .map-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(28,28,28,.05), inset 0 -30px 54px rgba(255,255,255,.12);
+      z-index: 2;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      filter: grayscale(1) saturate(0) contrast(.92) brightness(1.07);
+      transform: scale(1.005);
+      transition: opacity .4s var(--ease);
+    }
+
+    /* Keep the map crisp on hover: use a soft fade instead of 3D transforms/blur. */
+    .map-wrap:hover iframe {
+      opacity: .82;
+    }
+
+    .map-label {
+      position: absolute;
+      left: 24px;
+      bottom: 23px;
+      z-index: 3;
+      direction: ltr;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 17px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(25,25,25,.08);
+      box-shadow: 0 7px 20px rgba(20,20,20,.08);
+      color: #31312f;
+      font-size: 15px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .map-label i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #878783;
+      box-shadow: 0 0 0 4px rgba(135,135,131,.12);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 22px;
+      margin-top: 41px;
+      direction: rtl;
+    }
+
+    .card {
+      min-height: 233px;
+      padding: 24px 24px 22px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.94);
+      border: 1px solid rgba(255,255,255,.92);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255,255,255,.55), rgba(240,240,237,.18));
+      opacity: 0;
+      transition: opacity .35s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 17px 36px rgba(20,20,20,.10);
+      background: #fff;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .icon-box {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--soft);
+      margin-bottom: 17px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon-box svg {
+      width: 29px;
+      height: 29px;
+      stroke: #424240;
+      stroke-width: 1.9;
+      fill: none;
+    }
+
+    .card h2 {
+      margin: 0 0 5px;
+      font-size: 19.2px;
+      line-height: 1.4;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card p,
+    .card a {
+      margin: 0;
+      color: var(--ink-2);
+      font-size: 14.8px;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card a:hover { color: var(--ink); }
+
+    .ltr { direction: ltr; unicode-bidi: embed; }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px 8px;
+      margin-top: 2px;
+      direction: ltr;
+    }
+
+    .social-row a {
+      font-size: 13.8px;
+      font-weight: 500;
+      color: #666663;
+      position: relative;
+    }
+
+    .social-row a:not(:last-child)::after {
+      content: "·";
+      margin-left: 8px;
+      color: #aaa;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 41px;
+    }
+
+    .direction-btn {
+      min-width: 264px;
+      height: 53px;
+      padding: 0 31px;
+      border-radius: 999px;
+      border: 1px solid rgba(36,36,36,.07);
+      background: #eeeeec;
+      color: #31312f;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      text-decoration: none;
+      font-size: 16.8px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(30,30,30,.07), inset 0 1px 0 rgba(255,255,255,.8);
+      transition: transform .3s var(--ease), background .3s ease, box-shadow .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .direction-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.9) 48%, transparent 72%);
+      transform: translateX(-130%);
+      animation: sheen 4.8s ease-in-out infinite 1.8s;
+    }
+
+    @keyframes sheen {
+      0%, 70%, 100% { transform: translateX(-130%); }
+      82% { transform: translateX(130%); }
+    }
+
+    .direction-btn:hover {
+      transform: translateY(-2px);
+      background: #e7e7e4;
+      box-shadow: 0 12px 24px rgba(30,30,30,.09), inset 0 1px 0 rgba(255,255,255,.84);
+    }
+
+    .direction-btn svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+    }
+
+    .closing {
+      margin: 11px 0 0;
+      font-size: 13.2px;
+      font-weight: 400;
+      color: var(--ink-3);
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px) scale(.985);
+      filter: blur(4px);
+      transition:
+        opacity .85s var(--ease),
+        transform .85s var(--ease),
+        filter .85s var(--ease);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (min-width: 761px) and (max-width: 1024px) {
+      :root { --content: 900px; }
+
+      .page {
+        width: min(100% - 40px, var(--content));
+        padding: 30px 0 40px;
+        justify-content: flex-start;
+      }
+
+      .hero { margin-bottom: 30px; }
+
+      .pin-badge {
+        width: 62px;
+        height: 62px;
+        margin-bottom: 12px;
+      }
+
+      .pin-badge svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      h1 { font-size: 39px; }
+      .location-line { font-size: 15.5px; }
+      .location-sub { font-size: 13px; }
+
+      /* Tablet: keep the map large and prominent, then let the info cards flow underneath. */
+      .map-wrap {
+        height: clamp(560px, 78vw, 680px);
+      }
+
+      .info-grid {
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .card {
+        min-height: 192px;
+        padding: 19px 18px 17px;
+      }
+
+      .icon-box {
+        width: 46px;
+        height: 46px;
+      }
+
+      .card h2 { font-size: 16px; }
+      .card p,
+      .card a { font-size: 12px; }
+      .social-row a { font-size: 11.5px; }
+
+      .actions { margin-top: 29px; }
+      .direction-btn {
+        min-width: 220px;
+        height: 44px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 24px, 620px);
+        padding: 24px 0 28px;
+        justify-content: flex-start;
+      }
+
+      .hero { margin-bottom: 22px; }
+
+      .pin-badge {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 10px;
+      }
+
+      h1 { font-size: 31px; }
+
+      .location-line { font-size: 13.3px; }
+      .location-sub { font-size: 11.8px; }
+
+      /* Mobile: portrait-style map matching the reference proportions. */
+      .map-wrap {
+        height: clamp(520px, 134vw, 660px);
+        border-radius: 16px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .card {
+        min-height: auto;
+        padding: 17px;
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        grid-template-areas:
+          "icon title"
+          "icon body";
+        column-gap: 13px;
+        align-items: start;
+      }
+
+      .icon-box {
+        grid-area: icon;
+        margin: 0;
+        width: 42px;
+        height: 42px;
+      }
+
+      .card h2 {
+        grid-area: title;
+        margin-top: 1px;
+        margin-bottom: 2px;
+      }
+
+      .card .body {
+        grid-area: body;
+        min-width: 0;
+      }
+
+      .actions { margin-top: 22px; }
+      .direction-btn { min-width: 190px; }
+    }
+
+    @media (max-width: 430px) {
+      body {
+        background:
+          radial-gradient(520px 420px at 0% 30%, rgba(222,222,219,.78) 0%, rgba(245,245,243,0) 68%),
+          #f5f5f3;
+      }
+
+      .page { width: calc(100% - 18px); }
+      .hero { margin-top: 2px; }
+      h1 { font-size: 28px; }
+      .location-line { font-size: 12.8px; }
+      .location-sub { max-width: 315px; margin-inline: auto; }
+      .map-wrap {
+        height: clamp(500px, 134vw, 585px);
+        border-radius: 14px;
+      }
+      .map-label { left: 11px; bottom: 11px; font-size: 10px; padding: 7px 10px; }
+      .card { border-radius: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="OutMark contact and location">
+    <header class="hero reveal" style="--delay:80ms">
+      <div class="pin-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+      </div>
+      <h1>تفضل بزيارتنا</h1>
+      <p class="location-line">بريدة · المملكة العربية السعودية</p>
+      <p class="location-sub">OutMark — حلول تسويقية وإبداعية للعلامات الطموحة</p>
+    </header>
+
+    <section class="map-wrap reveal" style="--delay:170ms" aria-label="خريطة موقع OutMark في بريدة">
+      <iframe
+        title="OutMark Buraidah map"
+        src="https://www.google.com/maps?q=%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D9%85%D9%84%D9%83%20%D8%B3%D9%84%D9%85%D8%A7%D9%86%D8%8C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%8C%20%D8%A8%D8%B1%D9%8A%D8%AF%D8%A9%2052371&output=embed"
+        loading="eager"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+      <span class="map-label"><i></i> OUTMARK · BURAIDAH</span>
+    </section>
+
+    <section class="info-grid" aria-label="بيانات التواصل">
+      <article class="card reveal" style="--delay:260ms">
+        <div class="icon-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
+            <circle cx="12" cy="10" r="2.5"/>
+          </svg>
+        </div>
+        <h2>العنوان</h2>
+        <div class="body">
+          <p>طريق الملك سلمان، حي الحمر، بريدة 52371</p>
+          <p>فوق صيدلية رونق، عبر الممر الجانبي للصيدلية، آخر باب يسار، مع المصعد إلى الطابق الثاني.</p>
+        </div>
+      </article>
+
+      <article class="card reveal" style="--delay:330ms">
+        <div class="icon-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.65-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.1 4.18 2 2 0 0 1 4.09 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z"/>
+          </svg>
+        </div>
+        <h2>تواصل معنا</h2>
+        <div class="body">
+          <p>هاتف: <a class="ltr" href="tel:+966507681186">+966 50 768 1186</a></p>
+          <p>البريد: <a class="ltr" href="mailto:Hello@outmark.sa">Hello@outmark.sa</a></p>
+        </div>
+      </article>
+
+      <article class="card reveal" style="--delay:400ms">
+        <div class="icon-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M8.8 12.4 11 14.6 15.6 9.8"/>
+          </svg>
+        </div>
+        <h2>تابع OutMark</h2>
+        <div class="body social-row" aria-label="روابط التواصل الاجتماعي">
+          <a href="https://www.instagram.com/outmark.sa" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/outmark-sa" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.tiktok.com/@outmark.sa" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://x.com/outmark_sa" target="_blank" rel="noopener">X</a>
+        </div>
+      </article>
+    </section>
+
+    <div class="actions reveal" style="--delay:490ms">
+      <a class="direction-btn" href="https://maps.app.goo.gl/spPoKKX6maKJzjr66" target="_blank" rel="noopener">
+        <span>احصل على الاتجاهات</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m22 2-7 20-4-9-9-4Z"/>
+          <path d="M22 2 11 13"/>
+        </svg>
+      </a>
+      <p class="closing">يسعدنا استقبالكم والتواصل معكم في OutMark</p>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(el => io.observe(el));
+
+      // Map hover intentionally stays flat and crisp; the visual response is handled by opacity in CSS.
+    })();
+  </script>
+</body>
+</html>
