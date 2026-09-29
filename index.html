@@ -398,6 +398,89 @@
       filter: blur(0);
     }
 
+    /* Laptop screens only: keep all desktop widths unchanged, but compact the vertical rhythm
+       so the map, cards, directions button and closing text can fit comfortably in the viewport. */
+    @media (min-width: 1025px) and (max-height: 960px) {
+      /* Laptop-only compact layout: preserve the desktop width and visual hierarchy,
+         but reduce vertical space enough to keep the directions CTA visible without scrolling. */
+      .page {
+        padding: 10px 0 12px;
+      }
+
+      .hero {
+        margin-bottom: 22px;
+      }
+
+      .pin-badge {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+      }
+
+      .pin-badge svg {
+        width: 31px;
+        height: 31px;
+      }
+
+      .location-line {
+        margin-top: 7px;
+        line-height: 1.5;
+      }
+
+      .location-sub {
+        line-height: 1.55;
+      }
+
+      .map-wrap {
+        height: 300px;
+      }
+
+      .info-grid {
+        margin-top: 16px;
+      }
+
+      .card {
+        min-height: 138px;
+        padding: 10px 18px 9px;
+      }
+
+      .icon-box {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 4px;
+      }
+
+      .icon-box svg {
+        width: 23px;
+        height: 23px;
+      }
+
+      .card h2 {
+        margin-bottom: 1px;
+      }
+
+      .card p,
+      .card a {
+        line-height: 1.42;
+      }
+
+      .social-row {
+        margin-top: 0;
+      }
+
+      .actions {
+        margin-top: 12px;
+      }
+
+      .direction-btn {
+        height: 43px;
+      }
+
+      .closing {
+        margin-top: 4px;
+      }
+    }
+
     @media (min-width: 761px) and (max-width: 1024px) {
       :root { --content: 900px; }
 
@@ -576,7 +659,7 @@
     <section class="map-wrap reveal" style="--delay:170ms" aria-label="خريطة موقع OutMark في بريدة">
       <iframe
         title="OutMark Buraidah map"
-        src="https://www.google.com/maps?q=%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D9%85%D9%84%D9%83%20%D8%B3%D9%84%D9%85%D8%A7%D9%86%D8%8C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%8C%20%D8%A8%D8%B1%D9%8A%D8%AF%D8%A9%2052371&output=embed"
+        src="https://www.google.com/maps?q=%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D9%85%D9%84%D9%83%20%D8%B3%D9%84%D9%85%D8%A7%D9%86%D8%8C%20%D8%AD%D9%8A%20%D8%A7%D9%84%D8%AD%D9%85%D8%B1%D8%8C%20%D8%A8%D8%B1%D9%8A%D8%AF%D8%A9&output=embed"
         loading="eager"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen>
@@ -594,7 +677,7 @@
         </div>
         <h2>العنوان</h2>
         <div class="body">
-          <p>طريق الملك سلمان، حي الحمر، بريدة 52371</p>
+          <p>طريق الملك سلمان، حي الحمر، بريدة</p>
           <p>فوق صيدلية رونق، عبر الممر الجانبي للصيدلية، آخر باب يسار، مع المصعد إلى الطابق الثاني.</p>
         </div>
       </article>
